@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheets" href="css/userlogin.css">
+    <title>Login and Signup Form</title>
+</head>
+<body>
+    <div class="container">
+        <div class="toggle-btn" onclick="toggleForm()">Toggle Form</div>
+
+        <form class="form" id="loginForm" action="http://localhost:3000/user/login" method="post">
+            <h2>Login</h2>
+            <label for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" name="loginUsername" required>
+
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" name="loginPassword" required>
+
+            <button type="submit">Login</button>
+        </form>
+
+        <form class="form" id="signupForm" style="display: none;" action="http://localhost:3000/user/signup" method="post">
+            <h2>Sign Up</h2>
+            <label for="signupUsername">Username</label>
+            <input type="text" id="signupUsername" name="signupUsername" required>
+
+            <label for="signupPassword">Password</label>
+            <input type="password" id="signupPassword" name="signupPassword" required>
+
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleForm() {
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+
+    if (loginForm.style.display === 'none') {
+        loginForm.style.display = 'block';
+        signupForm.style.display = 'none';
+    } else {
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'block';
+    }
+}
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/sendblog.css">
+    <title>Blog Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="blog-form"><form action="http://localhost:3001/blog/send" method="post">
+            <h2>Create a New Blog</h2>
+
+            <label for="blogTitle">Title:</label>
+            <input type="text" id="blogTitle" name="blogTitle" placeholder="Enter the title" required>
+
+            <label for="blogContent">Content:</label>
+            <textarea id="blogContent" name="blogContent" placeholder="Write your blog content here" required></textarea>
+
+            <button type="submit">Send</button>
+        </form>
+        </div>
+    </div>
+</body>
+</html>

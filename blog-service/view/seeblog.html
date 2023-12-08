@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/seeblog.css">
+    <title>Blog Showcase</title>
+</head>
+<body>
+    <div class="container">
+        <div class="blog-list" id="blogList">
+            <!-- Blogs will be dynamically added here using JavaScript -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample data (replace this with actual blog data)
+    
+            const blogListContainer = document.getElementById("blogList");
+            fetch('http://localhost:3001/blog/see', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: -1 }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+    
+                // Populate the blog list with data
+                data.forEach(blog => {
+                    const blogCard = createBlogCard(blog);
+                    blogListContainer.appendChild(blogCard);
+                });
+            })
+            .catch(error => console.error('Error sending data:', error));
+        });
+    
+        function createBlogCard(blog) {
+            const blogCard = document.createElement("div");
+            blogCard.classList.add("blog-card");
+    
+            const titleElement = document.createElement("h2");
+            titleElement.textContent = blog.title;
+    
+            const contentElement = document.createElement("h4");
+            contentElement.textContent = blog.blogs;
+    
+            const userElement = document.createElement("p");
+            userElement.textContent = blog.user.username;
+    
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", function() {
+                // Display the content when the delete button is clicked
+                fetch('http://localhost:3001/blog/delete', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: blog.blogid }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                alert(data.message)
+
+            })
+            .catch(error => console.error('Error sending data:', error));
+                //alert(`Blog Content:${blog.blogid}`);
+                window.location.reload(true);
+            });
+    
+            blogCard.appendChild(titleElement);
+            blogCard.appendChild(contentElement);
+            blogCard.appendChild(userElement);
+            blogCard.appendChild(deleteButton);
+    
+            return blogCard;
+        }
+    </script>
+</body>
+</html>

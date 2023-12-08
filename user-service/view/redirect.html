@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/redirect.css">
+    <title>Blog Buttons</title>
+</head>
+<body>
+    <div class="container">
+        <button class="user-blog" onclick="redirect(1)">User Blog</button>
+        <button class="all-blog" onclick="redirect(2)">All Blog</button>
+        <button class="enter-blog" onclick="redirect(3)">Enter Blog</button>
+    </div>
+</body>
+<script>
+
+    function redirect(id) {
+        console.log('Redirect function executed');
+        if (id == 1) {
+            console.log('Button 1 clicked');
+            window.location.href = "http://localhost:3001/blog/user";
+        } else if (id == 2) {
+            console.log('Button 2 clicked');
+            window.location.href = "http://localhost:3001/blog/see";
+        } else {
+            console.log('Button 3 clicked');
+            window.location.href = "http://localhost:3001/blog/send";
+        }
+    }
+
+</script>
+</html>

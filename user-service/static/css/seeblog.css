@@ -1,0 +1,57 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    width: 800px;
+}
+
+.blog-card {
+    background-color: #fff;
+    margin: 20px 0;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.blog-card:hover {
+    transform: scale(1.05);
+}
+
+h2 {
+    color: #333;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+.blog-card::before {
+    content: '\201C'; /* Left double quotation mark */
+    font-size: 3rem;
+    color: #007bff;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.blog-card::after {
+    content: '\201D'; /* Right double quotation mark */
+    font-size: 3rem;
+    color: #007bff;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+

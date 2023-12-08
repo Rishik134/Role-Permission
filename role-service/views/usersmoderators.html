@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User and Moderator List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .user-list {
+            max-width: 400px;
+            margin: auto;
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="user-list">
+    <h2>Users</h2>
+    <div id="userList"></div>
+
+    <h2>Moderators</h2>
+    <div id="moderatorList"></div>
+</div>
+
+<script>
+    // Sample data
+    const userData = [
+        { id: 1, name: 'User 1' },
+        { id: 2, name: 'User 2' },
+        { id: 3, name: 'User 3' }
+    ];
+
+    const moderatorData = [
+        { id: 101, name: 'Moderator 1' },
+        { id: 102, name: 'Moderator 2' },
+        { id: 103, name: 'Moderator 3' }
+    ];
+
+    // Function to render the list
+    function renderUserList(container, data) {
+        //console.log(container);
+        container.innerHTML = '';
+        data.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.classList.add('list-item');
+
+            const itemName = document.createElement('span');
+            itemName.textContent = item.username;
+
+            const button = document.createElement('button');
+            button.textContent = 'Promote as Moderator';
+            button.classList.add('button');
+            button.addEventListener('click', () => handleButtonClick(item.userid,1));
+
+            listItem.appendChild(itemName);
+            listItem.appendChild(button);
+
+            container.appendChild(listItem);
+        });
+    }
+    function renderModeratorList(container, data) {
+        //console.log(container);
+        container.innerHTML = '';
+        data.forEach(item => {
+            const listItem = document.createElement('div');
+            listItem.classList.add('list-item');
+
+            const itemName = document.createElement('span');
+            itemName.textContent = item.username;
+
+            const button = document.createElement('button');
+            button.textContent = 'Demote to user';
+            button.classList.add('button');
+            button.addEventListener('click', () => handleButtonClick(item.userid,2));
+
+            listItem.appendChild(itemName);
+            listItem.appendChild(button);
+
+            container.appendChild(listItem);
+        });
+    }
+
+    // Function to handle button click
+    function handleButtonClick(userId,n) {
+        alert(`Button clicked for user/moderator with ID: ${userId}`);
+        console.log(n)
+        if(n==1){//For users
+            fetch('http://localhost:3002/data/promoteuser/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userId }),
+            })
+            document.location.reload(true);
+        }
+        else{
+            fetch('http://localhost:3002/data/demotemoderator/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: userId }),
+            })
+            document.location.reload(true);
+        }
+    }
+    fetch('http://localhost:3002/data/send/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: "Nothing" }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                renderUserList(document.getElementById('userList'), data.users);
+            renderModeratorList(document.getElementById('moderatorList'), data.moderators);
+            })
+            .catch(error => console.error('Error sending data:', error));
+    // Render the initial lists
+    //renderList(document.getElementById('userList'), userData);
+    //renderList(document.getElementById('moderatorList'), moderatorData);
+</script>
+
+</body>
+</html>
